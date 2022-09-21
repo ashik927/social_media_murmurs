@@ -13,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Profile />} />
+          <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />}>
             <Route path=":profileID" element={<Profile />} />
           </Route>
