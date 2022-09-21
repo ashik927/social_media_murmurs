@@ -10,8 +10,6 @@ export const postsSlice = createSlice({
         id: uuid(),
         text: action.payload,
       };
-
-
       return [...state, post];
     },
     updatePost: (state, action) => {
