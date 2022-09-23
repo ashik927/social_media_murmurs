@@ -45,6 +45,9 @@ export default function Sidebar() {
             <Group className="sidebarIcon" />
             <span className="sidebarListItemText">Following</span>
           </li>
+          <button style={{ color: '#ffffff', background: '#1877f2', padding: '5px', margin: '5px' }} onClick={() => handleLogOut()}>
+            <span className="sidebarListItemText">Log Out</span>
+          </button>
           {/* <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
             <span className="sidebarListItemText">Bookmarks</span>
@@ -76,9 +79,7 @@ export default function Sidebar() {
           ))}
         </ul>
       </div>
-      <button  style={{ color: '#ffffff', background:'#1877f2', padding: '5px', margin: '35px' }} onClick={() => handleLogOut()}>
-        <span className="sidebarListItemText">Log Out</span>
-      </button>
+
     </div>
   );
 }

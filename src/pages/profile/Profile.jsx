@@ -10,9 +10,13 @@ import { profileData } from "../../Service/User/User";
 import { getUserPost } from "../../Service/Post/Post";
 import { useDispatch } from "react-redux";
 import { getPost } from "../../features/posts/postsSlice";
+import { addFollow, getUserFollow, removeFollow } from "../../Service/Follow/Follow";
 
 export default function Profile() {
   const [profileUserInfo, setProfileUserInfo] = useState()
+  const [isFollow, setIsFollow] = useState(false)
+  const [followID, setFollowID] = useState(false)
+
   const { userName } = useParams()
   const dispatch = useDispatch();
 
@@ -20,13 +24,24 @@ export default function Profile() {
     const getProfileData = await profileData(userName)
     if (getProfileData) {
       setProfileUserInfo(getProfileData.data)
-      const allPost =await getUserPost(getProfileData?.data?.id)
-      dispatch(getPost(allPost.data))
+      const allPost = await getUserPost(getProfileData?.data?.id)
+      dispatch(getPost(allPost?.data))
+      const checkFollow = await getUserFollow(localStorage.getItem("userID") , getProfileData?.data?.id )
+      if (checkFollow?.data?.length > 0) {
+        setIsFollow(true)
+        setFollowID(checkFollow?.data[0]?.id)
+      }
     }
   }, [])
 
-  const follow = (userID ,followUserID)=>{
-      
+  const follow = (userID, followUserID) => {
+    if(!isFollow){
+      addFollow(userID, followUserID)
+    }else{
+      removeFollow(followID)
+    }
+    setIsFollow(!isFollow)
+    
   }
 
   return (
@@ -51,8 +66,11 @@ export default function Profile() {
             <div className="profileInfo">
               <h4 className="profileInfoName">{profileUserInfo?.name}</h4>
               {
-               profileUserInfo?.id != localStorage.getItem("userID") &&
-              <button style={{backgroundColor:"#1877f2" , padding:"10px" , marginBottom: "10px" , borderRadius:"10px"}} onClick={()=>follow(localStorage.getItem("userID") , profileUserInfo?.id)}> Follow</button>
+                profileUserInfo?.id != localStorage.getItem("userID") &&
+                  isFollow ?
+                  <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id)}> UnFollow</button>
+                  :
+                  <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id)}> Follow</button>
 
               }
               <span className="profileInfoDesc">Hello my friends!</span>

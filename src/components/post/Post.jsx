@@ -15,7 +15,6 @@ export default function Post({ post }) {
 
   const likeHandler = (myID, postID, likeCount) => {
     setLike(isLiked ? like - 1 : like + 1)
-    setIsLiked(!isLiked)
     const likeObject = {
       "userID": myID,
       "postID": postID,
@@ -26,6 +25,7 @@ export default function Post({ post }) {
     } else {
       addLike(likeObject)
     }
+    setIsLiked(!isLiked)
   }
 
   useEffect(async () => {
@@ -51,7 +51,7 @@ export default function Post({ post }) {
               src="../assets/defaultPicture.png"
               alt=""
             />
-            <Link to={`/profile/${post.userName}`} style={{textDecoration:'none'}}>
+            <Link to={`/profile/${post.userName}`} style={{ textDecoration: 'none' }}>
               <span className="postUsername">
                 {post.name}
                 {/* {Users.filter((u) => u.id === post?.userId)[0].username} */}
