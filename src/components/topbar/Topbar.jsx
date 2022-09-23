@@ -1,7 +1,10 @@
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Topbar() {
+  const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -33,7 +36,10 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span> */}
           </div>
         </div>
-        <img src="/assets/defaultPicture.png" alt="" className="topbarImg"/>
+        <Link to={`/profile/${userInfo.userName}`}>
+          <h5>{(userInfo.name)}</h5>
+        </Link>
+        {/* <img src="/assets/defaultPicture.png" alt="" className="topbarImg"/> */}
       </div>
     </div>
   );

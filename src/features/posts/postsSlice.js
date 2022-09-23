@@ -6,11 +6,10 @@ export const postsSlice = createSlice({
   initialState: [],
   reducers: {
     addPost: (state, action) => {
-      const post = {
-        id: uuid(),
-        text: action.payload,
-      };
-      return [...state, post];
+      return [...state, action.payload];
+    },
+    getPost: (state, action) => {
+      return  action.payload;
     },
     updatePost: (state, action) => {
       const { id, text } = action.payload;
@@ -24,6 +23,6 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { addPost, updatePost, deletePost } = postsSlice.actions;
+export const { addPost, updatePost, deletePost,getPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

@@ -76,9 +76,9 @@ export default function Sidebar() {
           ))}
         </ul>
       </div>
-      <h2 style={{ color: '#1877f2', padding: '7px', marginLeft: '25px' }} onClick={() => handleLogOut()}>
+      <button  style={{ color: '#ffffff', background:'#1877f2', padding: '5px', margin: '35px' }} onClick={() => handleLogOut()}>
         <span className="sidebarListItemText">Log Out</span>
-      </h2>
+      </button>
     </div>
   );
 }

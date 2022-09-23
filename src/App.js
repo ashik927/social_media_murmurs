@@ -17,7 +17,7 @@ function App() {
           <Route exact path='/' element={<PrivateRoute />}>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />}>
-              <Route path=":profileID" element={<Profile />} />
+              <Route path=":userName" element={<Profile />} />
             </Route>
             <Route path="timeline" element={<Home />} />
           </Route>
