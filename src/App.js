@@ -8,6 +8,8 @@ import Login from "./pages/login/Login";
 import Home from "./pages/home/Home";
 import Register from "./pages/register/Register";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import { Follow } from "./pages/Follow/Follow";
+import { Following } from "./pages/Following/Following";
 
 function App() {
   return (
@@ -20,9 +22,12 @@ function App() {
               <Route path=":userName" element={<Profile />} />
             </Route>
             <Route path="timeline" element={<Home />} />
+            <Route path="follow" element={<Follow />} />
+            <Route path="following" element={<Following />} />
           </Route>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          
 
         </Routes>
       </BrowserRouter>,

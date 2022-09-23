@@ -66,7 +66,7 @@ export default function Profile() {
             <div className="profileInfo">
               <h4 className="profileInfoName">{profileUserInfo?.name}</h4>
               {
-                profileUserInfo?.id != localStorage.getItem("userID") &&
+                profileUserInfo?.id == localStorage.getItem("userID") ? "" :
                   isFollow ?
                   <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id)}> UnFollow</button>
                   :
