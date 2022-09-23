@@ -38,8 +38,8 @@ export default function Topbar() {
             <span className="topbarIconBadge">1</span> */}
           </div>
         </div>
-        <Link to={`/profile/${userInfo.userName}`}>
-          <h5>{(userInfo.name)}</h5>
+        <Link to={`/profile/${userInfo.userName}`} style={{textDecoration:"none"}}>
+          <h2>{(userInfo.name)}</h2>
         </Link>
         {/* <img src="/assets/defaultPicture.png" alt="" className="topbarImg"/> */}
       </div>
