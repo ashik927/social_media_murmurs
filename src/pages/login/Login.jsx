@@ -2,7 +2,7 @@ import { useState } from "react";
 import { login } from "../../Service/AuthService/AuthService";
 import "./login.css";
 import swal from 'sweetalert';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -94,9 +94,7 @@ export default function Login() {
           </span>
         </div>
         <div className="loginRight">
-          {
-            console.log("validation", validation)
-          }
+         
           {
             validation.email &&
             <p style={{ color: 'red' }}>Please Input Email</p>
@@ -110,10 +108,12 @@ export default function Login() {
             <input placeholder="Email" className="loginInput" name="email" onChange={(e) => handleChange(e)} />
             <input placeholder="Password" className="loginInput" name="password" onChange={(e) => handleChange(e)} />
             <button className="loginButton" onClick={() => handleSubmit()}>Log In</button>
-            <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-              Create a New Account
-            </button>
+            {/* <span className="loginForgot">Forgot Password?</span> */}
+            <Link to="/register">
+              <button className="loginRegisterButton">
+                Create a New Account
+              </button>
+            </Link>
           </div>
         </div>
       </div>
