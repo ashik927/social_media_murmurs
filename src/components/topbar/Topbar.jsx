@@ -17,24 +17,22 @@ export default function Topbar() {
         </div> */}
       </div>
       <div className="topbarRight">
-        {/* <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
+        <div className="topbarLinks">
         </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
-            <Person />
-            <span className="topbarIconBadge">1</span>
+            {/* <Person />
+            <span className="topbarIconBadge">1</span> */}
           </div>
           <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">2</span>
+            {/* <Chat />
+            <span className="topbarIconBadge">2</span> */}
           </div>
           <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">1</span>
+            {/* <Notifications />
+            <span className="topbarIconBadge">1</span> */}
           </div>
-        </div> */}
+        </div>
         <img src="/assets/defaultPicture.png" alt="" className="topbarImg"/>
       </div>
     </div>

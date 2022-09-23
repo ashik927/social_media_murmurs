@@ -10,10 +10,17 @@ import {
   Event,
   School,
 } from "@material-ui/icons";
+
 import { Users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+  const handleLogOut = () => {
+    localStorage.clear();
+    navigate("/login")
+  }
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -62,13 +69,16 @@ export default function Sidebar() {
         {/* <button className="sidebarButton">Show More</button> */}
         <h4>Follower List</h4>
         <hr className="sidebarHr" />
-        
+
         <ul className="sidebarFriendList">
           {Users.map((u) => (
             <CloseFriend key={u.id} user={u} />
           ))}
         </ul>
       </div>
+      <h2 style={{ color: '#1877f2', padding: '7px', marginLeft: '25px' }} onClick={() => handleLogOut()}>
+        <span className="sidebarListItemText">Log Out</span>
+      </h2>
     </div>
   );
 }
