@@ -5,8 +5,9 @@ import { useState } from "react";
 import { addLike, checkLiked, removeLiked } from "../../Service/Like/Like";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { removePost } from "../../Service/Post/Post";
 
-export default function Post({ post }) {
+export default function Post({ post , handleDeleteParent , index}) {
   const [like, setLike] = useState(post.likeCount)
   const [isLiked, setIsLiked] = useState(false)
   const [myID, setMyID] = useState(localStorage.getItem('userID'))
@@ -39,6 +40,14 @@ export default function Post({ post }) {
 
   }, [post])
 
+  const handleDelete = async (myID , postID) => {
+   const confirmValue = window.confirm('Are you sure you want to delete')
+   if(confirmValue){
+    handleDeleteParent(myID , postID , index)
+    removePost(postID)
+   }
+  }
+
 
 
   return (
@@ -60,7 +69,12 @@ export default function Post({ post }) {
             <span className="postDate">{post?.created_at?.split('T')[0]}</span>
           </div>
           <div className="postTopRight">
-            <MoreVert />
+            {
+              myID == post.userID &&
+              <button onClick={()=>handleDelete(myID , post.id)} style={{backgroundColor:'#c12323',color:'white',cursor:'pointer'}}>Delete</button>
+            }
+
+            {/* <MoreVert /> */}
           </div>
         </div>
         <div className="postCenter">

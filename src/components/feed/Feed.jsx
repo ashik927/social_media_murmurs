@@ -10,7 +10,7 @@ import { getAllPost, getUserPost } from "../../Service/Post/Post";
 import { getPost } from "../../features/posts/postsSlice";
 import { useLocation } from "react-router-dom";
 
-export default function Feed({profileUserInfo}) {
+export default function Feed({ profileUserInfo }) {
   const Posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const location = useLocation()
@@ -19,41 +19,44 @@ export default function Feed({profileUserInfo}) {
   const [limit, setLimit] = useState(10);
   const [offset, setOffset] = useState(0);
   const [toatlPost, setTotalPost] = useState(0);
+  const [allPost, setAllPost] = useState(0);
 
   const handlePageClick = (event) => {
-    console.log("handlePageClick",event.selected)
+    console.log("handlePageClick", event.selected)
     setOffset((event.selected * limit) % toatlPost)
-    // const newOffset = (event.selected * itemsPerPage) % items.length;
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
-    // );
-    // setItemOffset(newOffset);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
+    setAllPost(Posts)
+  }, [Posts])
 
-  },[Posts])
+  useEffect(async () => {
+    var allPost;
+    if (location.pathname.includes('profile')) {
+      allPost = await getUserPost(profileUserInfo?.id, limit, offset)
+    } else {
+      allPost = await getAllPost(limit, offset)
+    }
 
-  useEffect(async()=>{
-      var allPost;
-      if(location.pathname.includes('profile')){
-        allPost = await getUserPost(profileUserInfo?.id, limit , offset)
-      }else{
-        allPost =await getAllPost(limit , offset)
-      }
-       
-      dispatch(getPost(allPost.data))
-      setPageCount(Math.ceil(allPost.totalCount/limit))
-      setTotalPost(allPost.totalCount)
-      console.log("allPost", allPost)
-  },[offset , profileUserInfo])
+    dispatch(getPost(allPost.data))
+    setPageCount(Math.ceil(allPost.totalCount / limit))
+    setTotalPost(allPost.totalCount)
+    console.log("allPost", allPost)
+  }, [offset, profileUserInfo])
+
+  const handleDelete = (myID, postID, index) => {
+    const allPostData = [...allPost]
+    const deleteIndex = index
+    const newPost = allPostData.splice(deleteIndex, 1 )
+    setAllPost(allPostData)
+  }
 
   return (
     <div className="feed">
       <div className="feedWrapper">
         <Share />
-        {Posts?.map((p) => (
-          <Post key={p.id} post={p} />
+        {allPost.length > 0 && allPost && allPost?.map((p, index) => (
+          <Post key={p.id} post={p} handleDeleteParent={handleDelete} index={index} />
         ))}
       </div>
       <ReactPaginate

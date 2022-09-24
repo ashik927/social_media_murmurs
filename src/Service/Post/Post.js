@@ -24,3 +24,8 @@ export const getUserPost = async (id ,limit , offset) => {
       });
 }
 
+export const removePost= async (id) => {
+      return await axios.delete(`${baseURL}/me/murmurs/${id}`).then((response) => {
+          return response.data;
+      });
+  }
