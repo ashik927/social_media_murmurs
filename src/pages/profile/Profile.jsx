@@ -24,8 +24,8 @@ export default function Profile() {
     const getProfileData = await profileData(userName)
     if (getProfileData) {
       setProfileUserInfo(getProfileData.data)
-      const allPost = await getUserPost(getProfileData?.data?.id)
-      dispatch(getPost(allPost?.data))
+      // const allPost = await getUserPost(getProfileData?.data?.id)
+      // dispatch(getPost(allPost?.data))
       const checkFollow = await getUserFollow(localStorage.getItem("userID") , getProfileData?.data?.id )
       if (checkFollow?.data?.length > 0) {
         setIsFollow(true)
@@ -77,7 +77,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="profileRightBottom">
-            <Feed />
+            <Feed profileUserInfo={profileUserInfo}/>
             {/* <Rightbar profile/> */}
           </div>
         </div>

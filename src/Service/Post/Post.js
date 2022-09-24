@@ -10,15 +10,15 @@ export const postAdded = async (postObject) => {
       });
 }
 
-export const getAllPost = async (postObject) => {
-      return await axios.get(`${baseURL}/murmurs`).then((response) => {
+export const getAllPost = async (limit , offset) => {
+      return await axios.get(`${baseURL}/murmurs`,{params : {limit:limit ,offset:offset}}).then((response) => {
             console.log(response);
             return response.data;
       });
 }
 
-export const getUserPost = async (id) => {
-      return await axios.get(`${baseURL}/murmurs/${id}`).then((response) => {
+export const getUserPost = async (id ,limit , offset) => {
+      return await axios.get(`${baseURL}/murmurs/${id}`,{params : {limit:limit ,offset:offset}}).then((response) => {
             console.log(response);
             return response.data;
       });
