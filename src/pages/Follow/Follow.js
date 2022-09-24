@@ -4,13 +4,13 @@ import Topbar from "../../components/topbar/Topbar";
 import "./follow.css";
 import { Users } from "../../dummyData";
 import { useEffect, useState } from "react";
-import { getAllFollower } from "../../Service/Follow/Follow";
+import { getAllFollower, getAllFollowing } from "../../Service/Follow/Follow";
 
 export const Follow = () => {
     const [allFollwer, setAllFollwer] = useState([])
 
     useEffect(async () => {
-        const allFollwerData = await getAllFollower(localStorage.getItem("userID"))
+        const allFollwerData = await getAllFollowing(localStorage.getItem("userID"))
         setAllFollwer(allFollwerData.data)
         console.log("allFollwerData", allFollwerData)
     }, [])

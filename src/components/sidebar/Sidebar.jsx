@@ -16,18 +16,22 @@ import CloseFriend from "../closeFriend/CloseFriend";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAllFollower } from "../../Service/Follow/Follow";
+import { profileData } from "../../Service/User/User";
 
 export default function Sidebar() {
   const navigate = useNavigate()
+  const [myProfileInfo , setMyProfileInfo] = useState()
   const [allFollwer, setAllFollwer] = useState([])
   const handleLogOut = () => {
     localStorage.clear();
     navigate("/login")
   }
   useEffect(async () => {
-    const allFollwerData = await getAllFollower(localStorage.getItem("userID"))
-    setAllFollwer(allFollwerData.data)
-    console.log("allFollwerData", allFollwerData)
+    const data =JSON.parse(localStorage.getItem('userInfo'))
+    const getMyProfileData = await profileData(data.userName)
+    if(getMyProfileData){
+      setMyProfileInfo(getMyProfileData.data)
+    }
   }, [])
   return (
     <div className="sidebar">
@@ -50,14 +54,14 @@ export default function Sidebar() {
           <Link to="/follow" style={{ textDecoration: "none", cursor:"pointer" }}>
             <li className="sidebarListItem">
               <Group className="sidebarIcon" />
-              <span className="sidebarListItemText">Follower</span>
+              <span className="sidebarListItemText">Follower ({myProfileInfo?.followerCount}) </span>
             </li>
           </Link>
           <Link to="/following" style={{ textDecoration: "none" , cursor:"pointer"}}>
 
             <li className="sidebarListItem">
               <Group className="sidebarIcon" />
-              <span className="sidebarListItemText">Following</span>
+              <span className="sidebarListItemText">Following ({myProfileInfo?.followingCount})</span>
             </li>
           </Link>
           <button style={{ color: '#ffffff', background: '#1877f2', padding: '5px', margin: '5px' }} onClick={() => handleLogOut()}>
@@ -85,7 +89,7 @@ export default function Sidebar() {
           </li> */}
         </ul>
         {/* <button className="sidebarButton">Show More</button> */}
-        <h4>Follower List</h4>
+        {/* <h4>Follower List</h4>
         <hr className="sidebarHr" />
         {
           allFollwer.length > 0 ? <ul className="sidebarFriendList">
@@ -95,7 +99,7 @@ export default function Sidebar() {
           </ul>
             :
             <p>No Follwer</p>
-        }
+        } */}
 
       </div>
 

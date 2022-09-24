@@ -39,6 +39,7 @@ export default function Login() {
       //check staus
       if (resValue.status === 200) {
         localStorage.setItem('userID', resValue.data.id)
+        
         localStorage.setItem('userInfo', JSON.stringify(resValue.data))
         navigate("/");
       } else {

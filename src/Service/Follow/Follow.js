@@ -8,8 +8,8 @@ export const getUserFollow = async (userID, followUserID) => {
     });
 }
 
-export const addFollow = async (userID, followUserID) => {
-    return await axios.post(`${baseURL}/me/follow`, { userID: userID, followUserID: followUserID }).then((response) => {
+export const addFollow = async (userID, followUserID , myfollowingCount , userFollowerCount) => {
+    return await axios.post(`${baseURL}/me/follow`, { userID: userID, followUserID: followUserID , myfollowingCount:myfollowingCount , userFollowerCount:userFollowerCount}).then((response) => {
         console.log(response);
         return response.data;
     });
@@ -29,8 +29,8 @@ export const getAllFollowing = async (userID) => {
     });
 }
 
-export const removeFollow = async (id) => {
-    return await axios.delete(`${baseURL}/me/follow/${id}`).then((response) => {
+export const removeFollow = async (id , userID , followUserID , myfollowingCount , userFollowerCount) => {
+    return await axios.delete(`${baseURL}/me/follow/${id}`,{params:{ userID: userID, followUserID: followUserID , myfollowingCount:myfollowingCount , userFollowerCount:userFollowerCount}}).then((response) => {
         return response.data;
     });
 }

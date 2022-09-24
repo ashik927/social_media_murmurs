@@ -16,14 +16,25 @@ export default function Profile() {
   const [profileUserInfo, setProfileUserInfo] = useState()
   const [isFollow, setIsFollow] = useState(false)
   const [followID, setFollowID] = useState(false)
+  const [myProfileInfo, setMyProfileInfo] = useState()
+  const [follwoingCount, setFollwoingCount] = useState()
+  const [follwerCount, setFollowerCount] = useState()
 
   const { userName } = useParams()
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    const data =JSON.parse(localStorage.getItem('userInfo'))
     const getProfileData = await profileData(userName)
+    const getMyProfileData = await profileData(data.userName)
+    if(getMyProfileData){
+      setMyProfileInfo(getMyProfileData.data)
+    }
+
     if (getProfileData) {
       setProfileUserInfo(getProfileData.data)
+      setFollwoingCount(getProfileData.data.followingCount)
+      setFollowerCount(getProfileData.data.followerCount)
       // const allPost = await getUserPost(getProfileData?.data?.id)
       // dispatch(getPost(allPost?.data))
       const checkFollow = await getUserFollow(localStorage.getItem("userID") , getProfileData?.data?.id )
@@ -34,12 +45,14 @@ export default function Profile() {
     }
   }, [])
 
-  const follow = (userID, followUserID) => {
+  const follow = (userID, followUserID , myFollwoing , userFollower) => {
     if(!isFollow){
-      addFollow(userID, followUserID)
+      setFollowerCount(follwerCount+1)
+      addFollow(userID, followUserID ,myFollwoing , userFollower)
     }else{
-      removeFollow(followID)
-    }
+      setFollowerCount(follwerCount-1)
+      removeFollow(followID , userID , followUserID ,myProfileInfo.followingCount , profileUserInfo.followerCount)
+    } 
     setIsFollow(!isFollow)
     
   }
@@ -70,9 +83,12 @@ export default function Profile() {
                   isFollow ?
                   <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id)}> UnFollow</button>
                   :
-                  <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id)}> Follow</button>
+                  <button style={{ backgroundColor: "#1877f2", padding: "10px", marginBottom: "10px", cursor: 'pointer', borderRadius: "10px" }} onClick={() => follow(localStorage.getItem("userID"), profileUserInfo?.id ,myProfileInfo.followingCount , profileUserInfo.followerCount)}> Follow</button>
 
               }
+              <span className="profileInfoDesc">Following : {follwoingCount} </span>
+              <span className="profileInfoDesc">Follower : {follwerCount} </span>
+
               <span className="profileInfoDesc">Hello my friends!</span>
             </div>
           </div>
