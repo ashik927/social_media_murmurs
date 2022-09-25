@@ -1,5 +1,4 @@
 import "./share.css";
-import {PermMedia, Label,Room, EmojiEmotions} from "@material-ui/icons"
 import { useState } from "react";
 import { postAdded } from "../../Service/Post/Post";
 import swal from 'sweetalert';
@@ -8,12 +7,12 @@ import { addPost } from "../../features/posts/postsSlice";
 
 export default function Share() {
   const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem("userInfo")));
-  const [murmurs , setMurmurs] = useState(false)
+  const [murmurs, setMurmurs] = useState(false)
   const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     murmur: "",
-    userID:localStorage.getItem("userID"),
-    likeCount:0
+    userID: localStorage.getItem("userID"),
+    likeCount: 0
   })
 
   const handleChange = (e) => {
@@ -63,38 +62,23 @@ export default function Share() {
       <div className="shareWrapper">
         <div className="shareTop">
           {
-            murmurs && <p style={{color:'red'}}>Please Write Something</p>
-              
+            murmurs && <p style={{ color: 'red' }}>Please Write Something</p>
+
           }
           <img className="shareProfileImg" src="/assets/defaultPicture.png" alt="" />
           <input
             placeholder={`What's in your mind ${userInfo.name}?`}
             className="shareInput"
             name="murmur"
-            onChange={(e) =>handleChange(e)}
+            onChange={(e) => handleChange(e)}
           />
         </div>
-        <hr className="shareHr"/>
+        <hr className="shareHr" />
         <div className="shareBottom">
-            <div className="shareOptions">
-                {/* <div className="shareOption">
-                    <PermMedia htmlColor="tomato" className="shareIcon"/>
-                    <span className="shareOptionText">Photo or Video</span>
-                </div>
-                <div className="shareOption">
-                    <Label htmlColor="blue" className="shareIcon"/>
-                    <span className="shareOptionText">Tag</span>
-                </div>
-                <div className="shareOption">
-                    <Room htmlColor="green" className="shareIcon"/>
-                    <span className="shareOptionText">Location</span>
-                </div>
-                <div className="shareOption">
-                    <EmojiEmotions htmlColor="goldenrod" className="shareIcon"/>
-                    <span className="shareOptionText">Feelings</span>
-                </div> */}
-            </div>
-            <button className="shareButton" onClick={()=>handleSubmit()}>Post</button>
+          <div className="shareOptions">
+
+          </div>
+          <button className="shareButton" onClick={() => handleSubmit()}>Post</button>
         </div>
       </div>
     </div>

@@ -2,9 +2,8 @@ import Online from "../../components/online/Online";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Topbar from "../../components/topbar/Topbar";
 import "./follow.css";
-import { Users } from "../../dummyData";
 import { useEffect, useState } from "react";
-import { getAllFollower, getAllFollowing } from "../../Service/Follow/Follow";
+import { getAllFollowing } from "../../Service/Follow/Follow";
 
 export const Follow = () => {
     const [allFollwer, setAllFollwer] = useState([])
@@ -27,7 +26,7 @@ export const Follow = () => {
                             <Online key={u.id} user={u} index={index} />
                         ))}
                     </ul> :
-                        <div style={{width:"1000px", margin:"15px"}}>
+                        <div style={{ width: "1000px", margin: "15px" }}>
                             <p>No Follow</p>
 
                         </div>

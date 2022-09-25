@@ -2,9 +2,8 @@ import Online from "../../components/online/Online";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Topbar from "../../components/topbar/Topbar";
 import "./follow.css";
-import { Users } from "../../dummyData";
 import { useEffect, useState } from "react";
-import { getAllFollower, getAllFollowing } from "../../Service/Follow/Follow";
+import { getAllFollower } from "../../Service/Follow/Follow";
 
 export const Following = () => {
     const [allFollwering, setallFollwering] = useState([])

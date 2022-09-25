@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { register } from "../../Service/AuthService/AuthService";
 import "./register.css";
 import swal from 'sweetalert';
 
 export default function Register() {
-
-  let navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -104,17 +102,17 @@ export default function Register() {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">Lamasocial</h3>
+          <h3 className="loginLogo">SOCIAL MEDIA</h3>
           <span className="loginDesc">
-            Connect with friends and the world around you on Lamasocial.
+            Connect with friends and the world around you on SOCIAL MEDIA.
           </span>
         </div>
         <div className="loginRight">
-        {
+          {
             validation.name &&
             <p style={{ color: 'red' }}>Please Input Name</p>
           }
-        {
+          {
             validation.email &&
             <p style={{ color: 'red' }}>Please Input Email</p>
           }
