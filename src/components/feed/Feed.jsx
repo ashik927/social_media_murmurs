@@ -55,11 +55,14 @@ export default function Feed({ profileUserInfo }) {
     <div className="feed">
       <div className="feedWrapper">
         <Share />
-        {allPost.length > 0 && allPost && allPost?.map((p, index) => (
+        {allPost.length > 0 ? allPost && allPost?.map((p, index) => (
           <Post key={p.id} post={p} handleDeleteParent={handleDelete} index={index} />
-        ))}
+        ))
+      :<p>No Post</p>}
       </div>
-      <ReactPaginate
+      {
+        allPost.length > 0 && 
+        <ReactPaginate
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
@@ -78,6 +81,8 @@ export default function Feed({ profileUserInfo }) {
         nextLinkClassName={'page-link'}
         activeClassName={'active'}
       />
+      }
+      
     </div>
   );
 }
