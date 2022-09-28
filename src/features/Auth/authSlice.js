@@ -10,7 +10,11 @@ export const authSlice = createSlice({
         id: uuid(),
         text: action.payload,
       };
-      return [...state, auth];
+      return [...state, post];
+    },
+    getAuth: (state, action) => {
+      debugger
+      return  action.payload;
     },
     updatePost: (state, action) => {
       const { id, text } = action.payload;
@@ -24,6 +28,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { addPost, updatePost, deletePost } = postsSlice.actions;
+export const { addPost, updatePost, deletePost , getAuth } = authSlice.actions;
 
-export default postsSlice.reducer;
+export default authSlice.reducer;

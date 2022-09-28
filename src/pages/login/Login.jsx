@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { login } from "../../Service/AuthService/AuthService";
 import "./login.css";
 import swal from 'sweetalert';
 import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../Service/AuthService/AuthService";
+import { useDispatch } from "react-redux";
+import { getAuth } from "../../features/Auth/authSlice";
 
 export default function Login() {
   let navigate = useNavigate();
-
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -20,7 +22,6 @@ export default function Login() {
   const handleChange = (e) => {
     //destructing
     const { name, value } = e.target
-
     setFormData({
       ...formData,
       [name]: value
@@ -39,7 +40,8 @@ export default function Login() {
       //check staus
       if (resValue.status === 200) {
         localStorage.setItem('userID', resValue.data.id)
-        
+        // debugger
+        dispatch(getAuth(resValue.data))
         localStorage.setItem('userInfo', JSON.stringify(resValue.data))
         navigate("/");
       } else {
